@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>加载用户表</title>
+</head>
+<body>
+	<script src="common.js"></script>
+	<script>
+		function showU(){
+			var xhr=createXhr();
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					var result=xhr.responseText;
+					var obj=JSON.parse(result);
+					for(var i=0;i<obj.length;i++){
+						$('tbd').innerHTML+=
+						'<tr>'+
+						'<td>'+obj[i].uname+'</td>'+
+						'<td>'+obj[i].upwd+'</td>'+
+						'<td>'+obj[i].email+'</td>'+
+						'<td>'+obj[i].phone+'</td>'+
+						'<td>'+obj[i].avatar+'</td>'+
+						'<td>'+obj[i].user_name+'</td>'+
+						'<td>'+obj[i].gender+'</td>'+
+						'</tr>';
+					}
+
+				}
+			}
+			xhr.open("get","03_userTable.php",true);
+			xhr.send(null);
+		}		
+	</script>
+	<input type="button" name="" value="加载用户" onclick="showU()">
+	<table border='1px'>
+		<thead>
+			<th>用户名</th>
+			<th>密码</th>
+			<th>邮箱</th>
+			<th>手机号</th>
+			<th>头像</th>
+			<th>用户真实姓名</th>
+			<th>性别</th>
+		</thead>
+		<tbody id='tbd'>
+		</tbody>
+	</table>
+</body>
+</html>

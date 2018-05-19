@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>01_register</title>
+</head>
+
+<body>
+    <script src="common.js"></script>
+    <script>
+    function checkName() {
+        var xhr = createXhr();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var result = xhr.responseText;
+                $("s_uname").innerHTML = result;
+            }
+        }
+        var uname = $("uname").value;
+        xhr.open("get", "01_checkName.php?uname=" + uname, true);
+        xhr.send(null);
+    }
+
+    function checkUpwd() {
+        if ($("upwd").value == '') {
+            $("s_upwd").innerHTML = "密码不能为空";
+        }
+    }
+
+    function checkCpwd() {
+        if ($("upwd").value != $("cpwd").value) {
+            $('s_cpwd').innerHTML = "两次密码不一致";
+        } else {
+            $('s_cpwd').innerHTML = '输入正确';
+        }
+    }
+    </script>
+    <form action="01_register.php" method="post" enctype="">
+        <p>登录名称：
+            <input type="text" name="uname" onblur="checkName()" id="uname"><span id="s_uname"></span></p>
+        <p>登录密码：
+            <input type="password" name="upwd" onblur="checkUpwd()" id="upwd"><span id='s_upwd'></span></p>
+        <p>确认密码：
+            <input type="password" name="cpwd" onblur="checkCpwd()" id="cpwd"><span id='s_cpwd'></span></p>
+        <p>用户邮箱：
+            <input type="email" name="email">
+        </p>
+        <p>联系方式：
+            <input type="text" name="tel">
+        </p>
+        <p>用户姓名：
+            <input type="text" name="user_name">
+        </p>
+        <p>用户性别：
+            <select name="gender">
+                <option value="1">男</option>
+                <option value="0">女</option>
+                <option value="2">其他</option>
+            </select>
+        </p>
+        <p>
+            <input type="submit" value="注册">
+        </p>
+    </form>
+</body>
+
+</html>
